@@ -1,0 +1,93 @@
+.container {
+  width: 60%;
+  margin: 0 auto;
+  font-size: 1rem;
+  background: #fff;
+  color: #5495cf;
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 0px 0px 36px -10px rgba(0, 0, 0, 0.29);
+  -moz-box-shadow: 0px 0px 36px -10px rgba(0, 0, 0, 0.29);
+  box-shadow: 0px 0px 36px -10px rgba(0, 0, 0, 0.29);
+  overflow: hidden;
+}
+.list_header {
+  display: flex;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+.list_header div,
+.list_header div button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  color: #fff;
+  background: #23366f;
+  font-weight: bold;
+  padding: 1rem;
+}
+.list_header div button {
+  flex: 0.5 0.5;
+  border: none;
+  font-size: inherit;
+  cursor: pointer;
+}
+.list_header div button:hover,
+.list_header div button.active {
+  color: #23366f;
+  background: #fff;
+  border-radius: 0.5rem;
+}
+.list_body ul {
+  margin: 0;
+  padding: 0;
+}
+.list_body li {
+  display: flex;
+}
+.list_body li div {
+  flex: 1;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.list_body li div img {
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 0px 36px -10px rgba(0, 0, 0, 0.29);
+  -moz-box-shadow: 0px 0px 36px -10px rgba(0, 0, 0, 0.29);
+  box-shadow: 0px 0px 36px -10px rgba(0, 0, 0, 0.29);
+  aspect-ratio: 1;
+}
+.img_holder {
+  width: 50%;
+  margin: 0 auto;
+}
+.list_pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 60%;
+  padding: 1.5rem 0;
+  gap: 1rem;
+}
+.list_pagination button {
+  width: 2rem;
+  height: 2rem;
+  background: #23366f;
+  color: #fff;
+  border: none;
+  -webkit-box-shadow: 0px 0px 36px -10px rgba(0, 0, 0, 0.29);
+  -moz-box-shadow: 0px 0px 36px -10px rgba(0, 0, 0, 0.29);
+  box-shadow: 0px 0px 36px -10px rgba(0, 0, 0, 0.29);
+  border-radius: 0.25rem;
+  transition: all 0.3s ease-in-out;
+}
+.list_pagination button:hover,
+.list_pagination button.active {
+  background: #fff;
+  color: #23366f;
+  cursor: pointer;
+}
+.list_body li div.no_data {
+  padding: 2rem;
+}

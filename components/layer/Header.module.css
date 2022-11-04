@@ -1,0 +1,16 @@
+.header_container {
+  background: #fff;
+  color: #5495cf;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.logo_holder {
+  width: 20vw;
+  height: 5vh;
+  margin: 2vh;
+  position: relative;
+}
+.logo_holder img {
+  object-fit: contain;
+}
