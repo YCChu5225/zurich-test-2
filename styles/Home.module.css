@@ -2,6 +2,7 @@
   padding: 0 2rem;
   background: #5495cf;
   min-height: 85vh;
+  display: flex;
 }
 
 .main {

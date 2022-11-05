@@ -1,16 +1,35 @@
 .header_container {
   background: #fff;
   color: #5495cf;
-  width: 100%;
+}
+.header_wrapper {
+  width: 80%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
 }
 .logo_holder {
-  width: 20vw;
-  height: 5vh;
   margin: 2vh;
   position: relative;
 }
 .logo_holder img {
   object-fit: contain;
+}
+.identity_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.identity_wrapper button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background: #23366f;
+  font-weight: bold;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
 }

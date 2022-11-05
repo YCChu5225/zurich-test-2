@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isLogin: false,
+  isLoginUser: {},
 };
 
 const uiSlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    isLoginHandler(state) {
-      state.isLogin = !state.isLogin;
+    isLoginHandler(state, actions) {
+      if (actions.payload === "LOGOUT") {
+        state.isLoginUser = initialState.isLoginUser;
+      }
+      state.isLoginUser = actions.payload;
     },
   },
 });

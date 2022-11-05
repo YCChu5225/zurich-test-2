@@ -1,4 +1,4 @@
-.container {
+.list_container {
   width: 60%;
   margin: 0 auto;
   font-size: 1rem;
@@ -69,6 +69,10 @@
   width: 60%;
   padding: 1.5rem 0;
   gap: 1rem;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 0;
+  right: calc(100% - 80%);
 }
 .list_pagination button {
   width: 2rem;

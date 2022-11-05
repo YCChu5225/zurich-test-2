@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Loader from "../../components/loader/Loader";
 import styles from "./Homepage.module.css";
+import { getSession, signIn, signOut, useSession } from "next-auth/react";
 
 const Homepage = () => {
   const [data, setData] = useState(null);
@@ -9,6 +10,8 @@ const Homepage = () => {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isName, setisName] = useState(null);
+
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,12 +43,11 @@ const Homepage = () => {
       );
     });
     pos !== isName ? setDataList(filteredData) : setDataList(data);
-    console.log(filteredData);
   };
 
   return (
     <>
-      <section className={styles.container}>
+      <section>
         <div className={styles.list_container}>
           <div className={styles.list_header}>
             <div>Avatar</div>
@@ -92,21 +94,34 @@ const Homepage = () => {
             )}
           </div>
         </div>
+        <div className={styles.list_pagination}>
+          {Array.from(Array(pageList), (_, x) => {
+            return (
+              <button
+                className={page === x + 1 ? styles.active : ""}
+                key={x}
+                onClick={() => setPage(x + 1)}>
+                {x + 1}
+              </button>
+            );
+          })}
+        </div>
       </section>
-      <div className={styles.list_pagination}>
-        {Array.from(Array(pageList), (_, x) => {
-          return (
-            <button
-              className={page === x + 1 ? styles.active : ""}
-              key={x}
-              onClick={() => setPage(x + 1)}>
-              {x + 1}
-            </button>
-          );
-        })}
-      </div>
     </>
   );
 };
 
 export default Homepage;
+
+export const getServerSideProps = async (cx) => {
+  const sess = await getSession(cx);
+
+  if (!sess) {
+    return {
+      redirect: {
+        destination: "/errorNotLogin",
+      },
+    };
+  }
+  return { props: { sess } };
+};

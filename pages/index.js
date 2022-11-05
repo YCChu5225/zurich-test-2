@@ -1,8 +1,9 @@
 import Head from "next/head";
+import Login from "../components/login/Login";
 import styles from "../styles/Home.module.css";
-import Homepage from "./homepage/Homepage";
+// import Homepage from "./homepage/Homepage";
 
-export default function Home(props) {
+export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
@@ -11,7 +12,8 @@ export default function Home(props) {
       </Head>
 
       <main className={styles.main}>
-        <Homepage />
+        <Login />
+        {/* <Homepage />  */}
       </main>
     </div>
   );
