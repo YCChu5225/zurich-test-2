@@ -1,16 +1,13 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 import Loader from "../../components/loader/Loader";
 import styles from "./Homepage.module.css";
-import { getSession, signIn, signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../../store/uiSlice";
 import useFetchUsers from "../../hooks/useFetchUsers";
 import useFilter from "../../hooks/useFilter";
 
 const Homepage = () => {
-  // const router = useRouter();
-  const { data: session } = useSession();
   const dispatch = useDispatch();
 
   const isLoading = useSelector((state) => state.ui.isLoading);

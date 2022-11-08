@@ -11,7 +11,6 @@ const Login = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(session);
     if (status === "authenticated") {
       router.push("/home");
       dispatch(uiActions.isLoginHandler(session));
