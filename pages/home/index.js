@@ -1,49 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Loader from "../../components/loader/Loader";
 import styles from "./Homepage.module.css";
 import { getSession, signIn, signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { uiActions } from "../../store/uiSlice";
+import useFetchUsers from "../../hooks/useFetchUsers";
+import useFilter from "../../hooks/useFilter";
 
 const Homepage = () => {
-  const [data, setData] = useState(null);
-  const [dataList, setDataList] = useState(null);
-  const [pageList, setPageList] = useState("");
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isName, setisName] = useState(null);
-
+  // const router = useRouter();
   const { data: session } = useSession();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetch("https://reqres.in/api/users?page=" + page);
-      const json = await data.json();
+  const isLoading = useSelector((state) => state.ui.isLoading);
+  const userLists = useSelector((state) => state.ui.userLists);
+  const selectedName = useSelector((state) => state.ui.selectedName);
 
-      setPageList(json.total_pages);
-
-      setData(json.data);
-      setDataList(json.data);
-    };
-
-    setisName("");
-
-    setIsLoading(true);
-    fetchData().catch(console.error);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 200);
-  }, [page]);
-
-  const filterByName = (pos) => {
-    isName === pos ? setisName(null) : setisName(pos);
-
-    const filteredData = data.filter((f) => {
-      return (
-        f[pos + "_name"].charAt(0).toLowerCase() ===
-        (pos === "first" ? "g" : "w")
-      );
-    });
-    pos !== isName ? setDataList(filteredData) : setDataList(data);
-  };
+  useFetchUsers();
 
   return (
     <>
@@ -53,15 +27,15 @@ const Homepage = () => {
             <div>Avatar</div>
             <div>
               <button
-                className={isName === "first" ? styles.active : ""}
-                onClick={() => filterByName("first")}>
+                className={selectedName === "first" ? styles.active : ""}
+                onClick={() => dispatch(uiActions.filterByName("first"))}>
                 First Name
               </button>
             </div>
             <div>
               <button
-                className={isName === "last" ? styles.active : ""}
-                onClick={() => filterByName("last")}>
+                className={selectedName === "last" ? styles.active : ""}
+                onClick={() => dispatch(uiActions.filterByName("last"))}>
                 Last Name
               </button>
             </div>
@@ -72,47 +46,30 @@ const Homepage = () => {
               <Loader />
             ) : (
               <ul>
-                {dataList?.length > 0 ? (
-                  dataList.map((d) => {
-                    return (
-                      <li key={d.last_name}>
-                        <div>
-                          <img src={d.avatar} alt="Profile Pic" />
-                        </div>
-                        <div>{d.first_name}</div>
-                        <div>{d.last_name}</div>
-                        <div>{d.email}</div>
-                      </li>
-                    );
-                  })
-                ) : (
-                  <li>
-                    <div className={styles.no_data}>Not Found</div>
-                  </li>
-                )}
+                {useFilter(selectedName, userLists)?.map((d) => {
+                  return (
+                    <li key={d.last_name}>
+                      <div>
+                        <img src={d.avatar} alt="Profile Pic" />
+                      </div>
+                      <div>{d.first_name}</div>
+                      <div>{d.last_name}</div>
+                      <div>{d.email}</div>
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </div>
-        </div>
-        <div className={styles.list_pagination}>
-          {Array.from(Array(pageList), (_, x) => {
-            return (
-              <button
-                className={page === x + 1 ? styles.active : ""}
-                key={x}
-                onClick={() => setPage(x + 1)}>
-                {x + 1}
-              </button>
-            );
-          })}
         </div>
       </section>
     </>
   );
 };
 
-export default Homepage;
+export default memo(Homepage);
 
+// Example 2 by serverside rendering
 export const getServerSideProps = async (cx) => {
   const sess = await getSession(cx);
 

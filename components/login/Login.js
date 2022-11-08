@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./Login.module.css";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { uiActions } from "../../store/uiSlice";
 
 const Login = () => {
@@ -11,6 +11,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(session);
     if (status === "authenticated") {
       router.push("/home");
       dispatch(uiActions.isLoginHandler(session));

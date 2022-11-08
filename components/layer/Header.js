@@ -15,7 +15,7 @@ const Header = () => {
         </div>
         {Object.keys(isLoginUser).length > 0 ? (
           <div className={styles.identity_wrapper}>
-            <div>Hi, {isLoginUser.user.name}</div>
+            <div>Hi, {isLoginUser?.user.name}</div>
             <button
               onClick={() => signOut({ redirect: true, callbackUrl: "/" })}>
               Sign Out
