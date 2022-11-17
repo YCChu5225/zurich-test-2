@@ -10,17 +10,19 @@ export default async function handler(req, res) {
 
     let userLists = [];
     let i = 1;
+    let totalPage = 0;
 
     do {
       const response = await fetch(process.env.API_URL + i);
       const json = await response.json();
+      totalPage = json.total_pages;
 
-      if (json.data && json.data.length > 0) {
+      if (i <= totalPage) {
         userLists = userLists.concat(json.data);
       }
 
       i++;
-    } while (i < 3);
+    } while (i <= totalPage);
 
     res.status(200).json(userLists);
   } catch (error) {

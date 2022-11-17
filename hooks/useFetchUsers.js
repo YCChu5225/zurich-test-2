@@ -9,8 +9,6 @@ const useFetchUsers = () => {
       const data = await fetch("api/users");
       const json = await data.json();
 
-      console.log(json);
-
       dispatch(uiActions.userListHandler(json));
     };
 
